@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutoPartsShop.Infrastructure\AutoPartsShop.Infrastructure.csproj" />
+    <ProjectReference Include="..\AutoPartssShop.Core\AutoPartssShop.Core.csproj" />
   </ItemGroup>
 
 </Project>

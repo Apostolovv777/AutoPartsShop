@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36310.24 d17.14
+VisualStudioVersion = 17.14.36310.24
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop", "AutoPartsShop\AutoPartsShop.csproj", "{C4672C92-2EAB-482C-AE97-DB983B9E29AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShop.Infrastructure", "AutoPartsShop.Infrastructure\AutoPartsShop.Infrastructure.csproj", "{A6EBAED0-7B1A-42B3-BF63-7DE550D05C40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartssShop.Core", "AutoPartssShop.Core\AutoPartssShop.Core.csproj", "{957A8A5A-EF49-4063-A48A-716606DEE96F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A6EBAED0-7B1A-42B3-BF63-7DE550D05C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6EBAED0-7B1A-42B3-BF63-7DE550D05C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6EBAED0-7B1A-42B3-BF63-7DE550D05C40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957A8A5A-EF49-4063-A48A-716606DEE96F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957A8A5A-EF49-4063-A48A-716606DEE96F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957A8A5A-EF49-4063-A48A-716606DEE96F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957A8A5A-EF49-4063-A48A-716606DEE96F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
