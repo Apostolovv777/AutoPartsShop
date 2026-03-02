@@ -1,6 +1,8 @@
 using AutoPartsShop.Infrastructure.Data;
 using AutoPartsShop.Infrastructure.Data.Entities;
 using AutoPartsShop.Infrastructure.Data.Infrastructure;
+using AutoPartssShop.Core.Contracts;
+using AutoPartssShop.Core.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +16,8 @@ namespace AutoPartsShop
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseLazyLoadingProxies()
+                .UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
@@ -29,6 +32,9 @@ namespace AutoPartsShop
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddTransient<ICategoryService, CategoryService>();
+            builder.Services.AddTransient<IBrandService, BrandService>();
 
             var app = builder.Build();
 
