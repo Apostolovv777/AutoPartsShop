@@ -18,7 +18,7 @@ namespace AutoPartssShop.Core.Services
             _context = context;
         }
 
-        public bool Create(string name, int brandId, int categoryId, string picture, int quantity, decimal price, decimal discount)
+        public bool Create(string name, int brandId, int categoryId, string picture,string description, int quantity, decimal price, decimal discount)
         {
             Product item = new Product
             {
@@ -27,6 +27,7 @@ namespace AutoPartssShop.Core.Services
                 Category = _context.Categories.Find(categoryId),
 
                 Picture = picture,
+                Description = description,
                 Quantity = quantity,
                 Price = price,
                 Discount = discount
@@ -36,31 +37,8 @@ namespace AutoPartssShop.Core.Services
             return _context.SaveChanges() != 0;
         }
 
-        public Product GetProductById(int productId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetProducts()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetProducts(string searchStringCategoryName, string searchStringBrandName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RemoveById(int dogproductId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(int productId, string name, int brandId, int categoryId, string picture, int quantity, decimal price, decimal discount)
-        {
-            throw new NotImplementedException();
-        }
-
+      
+       
     public Product GetProductById(int productId)
         {
             return _context.Products.Find(productId);
