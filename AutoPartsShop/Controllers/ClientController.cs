@@ -1,5 +1,6 @@
 ﻿using AutoPartsShop.Infrastructure.Data.Entities;
 using AutoPartsShop.Models.Client;
+using AutoPartssShop.Core.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace AutoPartsShop.Controllers
     public class ClientController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IOrderService _orderService;
 
-        public ClientController(UserManager<ApplicationUser> userManager)
+        public ClientController(UserManager<ApplicationUser> userManager, IOrderService orderService)
         {
             this._userManager = userManager;
+            this._orderService = orderService;
         }
 
         // GET: ClientController
@@ -56,6 +59,8 @@ namespace AutoPartsShop.Controllers
             {
                 return NotFound();
             }
+            var listOfOrders = _orderService.GetOrdersByUser(id);
+            if (listOfOrders.Count > 0) { return RedirectToAction("DeleteDemied"); }
 
             ClientDeleteVM userToDelete = new ClientDeleteVM()
             {

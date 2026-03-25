@@ -17,10 +17,9 @@ namespace AutoPartsShop.Models.Product
         [Display(Name = "Category")]
         public string CategoryName { get; set; } = null!;
         [Display(Name = "Picture")]
-
+        public string Picture { get; set; } = null!;
         [Display(Name = "Description")]
         public string Description { get; set; } = null!;
-        public string Picture { get; set; } = null!;
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
         [Display(Name = "Price")]

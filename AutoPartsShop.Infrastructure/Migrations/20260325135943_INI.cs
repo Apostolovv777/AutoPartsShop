@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AutoPartsShop.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class rrr : Migration
+    public partial class INI : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

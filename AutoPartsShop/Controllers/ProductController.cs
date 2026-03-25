@@ -76,6 +76,7 @@ namespace AutoPartsShop.Controllers
                     CategoryId = product.CategoryId,
                     CategoryName = product.Category.CategoryName,
                     Picture = product.Picture,
+                    Description = product.Description,
                     Quantity = product.Quantity,
                     Price = product.Price,
                     Discount = product.Discount
@@ -102,6 +103,7 @@ namespace AutoPartsShop.Controllers
                 CategoryId = product.CategoryId,
                 // CategoryName = product.Category.CategoryName,
                 Picture = product.Picture,
+                Description = product.Description,
                
                 Quantity = product.Quantity,
                 Price = product.Price,
@@ -136,7 +138,7 @@ namespace AutoPartsShop.Controllers
                 if (ModelState.IsValid)
                 {
                     var updated = _productService.Update(id, product.ProductName, product.BrandId,
-                                                         product.CategoryId, product.Picture,
+                                                         product.CategoryId, product.Picture,product.Description,
                                                          product.Quantity, product.Price, product.Discount);
                     if (updated)
                     {
@@ -166,6 +168,7 @@ namespace AutoPartsShop.Controllers
                 CategoryId = item.CategoryId,
                 CategoryName = item.Category.CategoryName,
                 Picture = item.Picture,
+                Description = item.Description,
                 Quantity = item.Quantity,
                 Price = item.Price,
                 Discount = item.Discount
@@ -190,6 +193,7 @@ public ActionResult Delete(int id)
                 CategoryId = item.CategoryId,
                 CategoryName = item.Category.CategoryName,
                 Picture = item.Picture,
+                Description = item.Description,
                 Quantity = item.Quantity,
                 Price = item.Price,
                 Discount = item.Discount

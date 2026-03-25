@@ -82,7 +82,7 @@ namespace AutoPartssShop.Core.Services
             _context.Remove(product);
             return _context.SaveChanges() != 0;
         }
-        public bool Update(int productId, string name, int brandId, int categoryId, string picture,
+        public bool Update(int productId, string name, int brandId, int categoryId, string picture,string description,
     int quantity, decimal price, decimal discount)
         {
             var product = GetProductById(productId);
@@ -99,6 +99,7 @@ namespace AutoPartssShop.Core.Services
             product.Category = _context.Categories.Find(categoryId);
 
             product.Picture = picture;
+            product.Description = description;
             product.Quantity = quantity;
             product.Price = price;
             product.Discount = discount;
