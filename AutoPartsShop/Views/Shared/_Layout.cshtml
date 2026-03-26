@@ -29,6 +29,24 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="MyOrders">My Orders</a>
                         </li>
 
+                        <li class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                Products
+                            </button>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Vw">VW</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Bmw">BMW</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Mercedes">MERCEDES</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Audi">AUDI</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Toyota">TOYOTA</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Honda">HONDA</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Opel">OPEL</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Seat">SEAT</a></li>
+                            </ul>
+                        </li>
+
                         @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
                         {
                             <li class="dropdown">
