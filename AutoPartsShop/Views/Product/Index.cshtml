@@ -1,108 +1,171 @@
 ﻿@model IEnumerable<AutoPartsShop.Models.Product.ProductIndexVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Продукти";
 }
-<h1>Index</h1>
 
-@if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+<style>
+    body {
+        background-color: #0b0b0b;
+        color: white;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ff1a1a;
+    }
+
+    /* FILTER */
+    .filter-box {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .filter-box input {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .filter-box button {
+            padding: 8px 20px;
+            background: #ff1a1a;
+            border: none;
+            color: white;
+            border-radius: 5px;
+        }
+
+    /* GRID */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+        padding: 20px;
+    }
+
+    .product-card {
+        background: #141414;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+    .product-info {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .price {
+        color: #ff1a1a;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .btn-main {
+        background: #ff1a1a;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+        .btn-main:hover {
+            background: #cc0000;
+        }
+
+    .admin-btns a {
+        margin: 3px;
+    }
+</style>
+
+<h1>🛒 Продукти</h1>
+
+
+<!-- ADMIN BUTTON -->
+@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    <div style="text-align:center; margin-bottom:20px;">
+        <a asp-action="Create" class="btn-main">➕ Добави продукт</a>
+    </div>
 }
-<form asp-controller="Product" asp-action="Index" method="get">
-    <p>
-        Brand: <input type="text" name="SearchStringBrandName" />
-        Category: <input type="text" name="SearchStringCategoryName" />
 
-        <input type="submit" value="Filter" />
-    </p>
-</form>
+<!-- PRODUCTS GRID -->
+<div class="products-grid">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.BrandId)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.BrandName)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Picture)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                @*@Html.DisplayFor(modelItem => item.BrandId)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.BrandName)
-                </td>
-                @*@Html.DisplayFor(modelItem => item.CategoryId)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Picture)"
-                         alt="Image" width="100" />
-                    @*@Html.DisplayFor(modelItem => item.Picture)*@
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount) %
-                </td>
-                <td>
+    @foreach (var item in Model)
+    {
+        <div class="product-card">
 
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Details</a>
-                    @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
-                    {
+            <img src="@item.Picture" alt="product">
+
+            <div class="product-info">
+                <h4>@item.ProductName</h4>
+
+                <p>@item.BrandName | @item.CategoryName</p>
+
+                <p class="price">
+                    @(item.Price - (item.Price * item.Discount / 100)) лв.
+                </p>
+
+                @if (item.Discount > 0)
+                {
+                    <small style="text-decoration: line-through;">
+                        @item.Price лв.
+                    </small>
+                }
+
+                <!-- FAVORITE BUTTON -->
+                <a asp-controller="Favourites"
+                   asp-action="Add"
+                   asp-route-id="@item.Id"
+                   class="btn btn-outline-danger mt-2">
+                    ❤️ Любими
+                </a>
+
+                <br />
+
+                <!-- ADD TO CART -->
+                <a href="/Cart/AddToCart?id=@item.Id&name=@item.ProductName&price=@item.Price&imageUrl=@item.Picture"
+                   class="btn-main">
+                    🛒 Добави
+                </a>
+
+                <br />
+
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success mt-2">
+                    Детайли
+                </a>
+
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                {
+                    <div class="admin-btns">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                }
 
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            </div>
+        </div>
+    }
+
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AutoPartsShop.Models.Favourite.FavouriteVM>
+
+<h2>❤️ Любими</h2>
+
+<div class="products-grid">
+
+    @foreach (var item in Model)
+    {
+        <div class="product-card">
+            <img src="@item.ImageUrl" />
+
+            <div class="product-info">
+                <h4>@item.ProductName</h4>
+                <p class="price">@item.Price лв.</p>
+
+                <a href="/Favourites/Remove?id=@item.ProductId" class="btn btn-danger">
+                    Премахни
+                </a>
+            </div>
+        </div>
+    }
+
+</div>

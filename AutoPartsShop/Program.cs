@@ -37,7 +37,8 @@ namespace AutoPartsShop
             builder.Services.AddTransient<IBrandService, BrandService>();
             builder.Services.AddTransient<IProductService, ProductService>();
             builder.Services.AddTransient<IOrderService, OrderService>();
-            builder.Services.AddTransient<IStatisticService, IStatisticService>();
+            builder.Services.AddTransient<IStatisticService, StatisticService>();
+            builder.Services.AddTransient<IFavouriteService, FavouriteService>();
 
             var app = builder.Build();
 

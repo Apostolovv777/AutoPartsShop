@@ -1,8 +1,179 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "AutoPartsShop - Начало";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        background-color: #0b0b0b;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* HERO */
+    .hero {
+        background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') center/cover no-repeat;
+        height: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-content {
+        background: rgba(0,0,0,0.7);
+        padding: 30px;
+        border-radius: 12px;
+    }
+
+    .hero h1 {
+        font-size: 55px;
+        color: #ff1a1a;
+    }
+
+    .btn-main {
+        background: linear-gradient(45deg, #ff0000, #990000);
+        padding: 12px 30px;
+        border-radius: 8px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 15px;
+        transition: 0.3s;
+    }
+
+        .btn-main:hover {
+            transform: scale(1.1);
+        }
+
+    /* КАТЕГОРИИ */
+    .categories {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 40px;
+    }
+
+    .card {
+        background: #141414;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+    .card-content {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 20px rgba(255,0,0,0.5);
+    }
+
+    /* ПРОДУКТИ */
+    .products {
+        display: flex;
+        justify-content: space-around;
+        padding: 40px;
+    }
+
+    .product {
+        background: #1a1a1a;
+        padding: 15px;
+        border-radius: 10px;
+        width: 22%;
+        text-align: center;
+    }
+
+        .product img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+    .price {
+        color: #ff1a1a;
+        font-weight: bold;
+    }
+</style>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>AutoPartsShop</h1>
+        <p>Интериорни и тунинг части за твоя автомобил</p>
+        <a href="/Products" class="btn-main">Разгледай</a>
+    </div>
+</div>
+
+<!-- КАТЕГОРИИ -->
+<div class="categories">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2">
+        <div class="card-content">
+            <h3>Интериор</h3>
+            <p>Волани, седалки, LED</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a">
+        <div class="card-content">
+            <h3>Тунинг</h3>
+            <p>Спортни части и визия</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537">
+        <div class="card-content">
+            <h3>Осветление</h3>
+            <p>LED, амбиентно</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d">
+        <div class="card-content">
+            <h3>Аксесоари</h3>
+            <p>Всичко за колата</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- ПРОДУКТИ -->
+<div class="products">
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1617814076668-7f0c2f0f1e3d">
+        <h4>Спортен волан</h4>
+        <p class="price">120 лв.</p>
+    </div>
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c4">
+        <h4>LED интериорно осветление</h4>
+        <p class="price">45 лв.</p>
+    </div>
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1610647752706-3bb12232b3ab">
+        <h4>Спортни педали</h4>
+        <p class="price">60 лв.</p>
+    </div>
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1597002973879-0f0a1c8b8cb7">
+        <h4>Седалки (тунинг)</h4>
+        <p class="price">350 лв.</p>
+    </div>
+
 </div>
