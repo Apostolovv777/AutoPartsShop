@@ -2,178 +2,424 @@
     ViewData["Title"] = "AutoPartsShop - Начало";
 }
 
-<style>
-    body {
-        background-color: #0b0b0b;
-        color: #fff;
-        font-family: 'Segoe UI', sans-serif;
-    }
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <span class="hero-badge">Интериорни части и аксесоари</span>
+        <h1 class="hero-title">UPGRADE<br><span>YOUR RIDE</span></h1>
+        <p class="hero-sub">Премиум интериорни части за твоя автомобил — бърза доставка, гарантирано качество.</p>
+        <div class="hero-btns">
+            <a asp-controller="Product" asp-action="Index" class="btn-hero-primary">
+                Разгледай продуктите
+            </a>
+            <a asp-controller="Home" asp-action="Privacy" class="btn-hero-secondary">
+                За нас
+            </a>
+        </div>
+    </div>
+</section>
 
-    /* HERO */
+<!-- ==================== КАТЕГОРИИ ==================== -->
+<div class="container-fluid px-4 py-5">
+
+    <div class="section-header">
+        <span class="section-line"></span>
+        <h2 class="section-title"><i class="fas fa-th-large me-2"></i>Популярни категории</h2>
+        <span class="section-line"></span>
+    </div>
+
+    <div class="categories-grid">
+        <a href="#" class="cat-card">
+            <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80" alt="Седалки">
+            <div class="cat-overlay"><span>Седалки &amp; Калъфи</span></div>
+        </a>
+        <a href="#" class="cat-card">
+            <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&q=80" alt="Волани">
+            <div class="cat-overlay"><span>Волани</span></div>
+        </a>
+        <a href="#" class="cat-card">
+            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&q=80" alt="Осветление">
+            <div class="cat-overlay"><span>Амбиентно осветление</span></div>
+        </a>
+        <a href="#" class="cat-card">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80" alt="Килимчета">
+            <div class="cat-overlay"><span>Килимчета &amp; Подложки</span></div>
+        </a>
+        <a href="#" class="cat-card">
+            <img src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c4?w=600&q=80" alt="Организатори">
+            <div class="cat-overlay"><span>Организатори</span></div>
+        </a>
+        <a href="#" class="cat-card">
+            <img src="https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?w=600&q=80" alt="Аксесоари">
+            <div class="cat-overlay"><span>Аксесоари</span></div>
+        </a>
+    </div>
+
+    <!-- ==================== ПРОДУКТИ ==================== -->
+    <div class="section-header mt-5">
+        <span class="section-line"></span>
+        <h2 class="section-title"><i class="fas fa-fire me-2"></i>Избрани продукти</h2>
+        <span class="section-line"></span>
+    </div>
+
+    <div class="products-grid">
+        <div class="prod-card">
+            <div class="prod-img-wrap">
+                <img src="https://images.unsplash.com/photo-1617814076668-7f0c2f0f1e3d?w=500&q=80" alt="Спортен волан">
+            </div>
+            <div class="prod-body">
+                <h5 class="prod-name">Спортен волан Alcantara</h5>
+                <p class="prod-price">189.90 лв.</p>
+                <a asp-controller="Product" asp-action="Details" asp-route-id="1" class="btn-prod">Виж повече</a>
+            </div>
+        </div>
+
+        <div class="prod-card">
+            <div class="prod-img-wrap">
+                <img src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c4?w=500&q=80" alt="LED осветление">
+            </div>
+            <div class="prod-body">
+                <h5 class="prod-name">RGB LED Амбиентно осветление</h5>
+                <p class="prod-price">69.90 лв.</p>
+                <a asp-controller="Product" asp-action="Details" asp-route-id="2" class="btn-prod">Виж повече</a>
+            </div>
+        </div>
+
+        <div class="prod-card">
+            <div class="prod-img-wrap">
+                <img src="https://images.unsplash.com/photo-1610647752706-3bb12232b3ab?w=500&q=80" alt="Педали">
+            </div>
+            <div class="prod-body">
+                <h5 class="prod-name">Спортен комплект педали</h5>
+                <p class="prod-price">79.90 лв.</p>
+                <a asp-controller="Product" asp-action="Details" asp-route-id="3" class="btn-prod">Виж повече</a>
+            </div>
+        </div>
+
+        <div class="prod-card">
+            <div class="prod-img-wrap">
+                <img src="https://images.unsplash.com/photo-1597002973879-0f0a1c8b8cb7?w=500&q=80" alt="Седалки">
+            </div>
+            <div class="prod-body">
+                <h5 class="prod-name">Калъфи за седалки Premium</h5>
+                <p class="prod-price">129.90 лв.</p>
+                <a asp-controller="Product" asp-action="Details" asp-route-id="4" class="btn-prod">Виж повече</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a asp-controller="Product" asp-action="Index" class="btn-all">
+            Виж всички продукти &rarr;
+        </a>
+    </div>
+
+</div>
+
+<style>
+    /* ==================== HERO ==================== */
     .hero {
-        background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') center/cover no-repeat;
-        height: 500px;
+        height: 88vh;
+        min-height: 560px;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
         text-align: center;
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(160deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.92) 100%), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=80') center/cover no-repeat;
     }
 
     .hero-content {
-        background: rgba(0,0,0,0.7);
-        padding: 30px;
-        border-radius: 12px;
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+        padding: 0 24px;
     }
 
-    .hero h1 {
-        font-size: 55px;
-        color: #ff1a1a;
-    }
-
-    .btn-main {
-        background: linear-gradient(45deg, #ff0000, #990000);
-        padding: 12px 30px;
-        border-radius: 8px;
-        color: white;
-        text-decoration: none;
+    .hero-badge {
         display: inline-block;
-        margin-top: 15px;
-        transition: 0.3s;
+        background: rgba(230, 51, 18, 0.15);
+        color: #e63312;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        padding: 5px 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(230, 51, 18, 0.3);
+        margin-bottom: 20px;
     }
 
-        .btn-main:hover {
-            transform: scale(1.1);
+    .hero-title {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: clamp(48px, 8vw, 88px);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+    }
+
+        .hero-title span {
+            color: #e63312;
         }
 
-    /* КАТЕГОРИИ */
-    .categories {
+    .hero-sub {
+        color: #999;
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 480px;
+        margin: 0 auto 32px;
+    }
+
+    .hero-btns {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+        background: #e63312;
+        color: #fff;
+        padding: 13px 32px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: .5px;
+        text-decoration: none;
+        transition: background .2s;
+        font-family: 'Noto Sans', sans-serif;
+    }
+
+        .btn-hero-primary:hover {
+            background: #c4290e;
+            color: #fff;
+        }
+
+    .btn-hero-secondary {
+        background: none;
+        color: #ccc;
+        padding: 13px 32px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        border: 1px solid #2a2a2a;
+        text-decoration: none;
+        transition: all .2s;
+        font-family: 'Noto Sans', sans-serif;
+    }
+
+        .btn-hero-secondary:hover {
+            color: #fff;
+            border-color: #555;
+        }
+
+    /* ==================== SECTION HEADER ==================== */
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 32px;
+    }
+
+    .section-line {
+        flex: 1;
+        height: 1px;
+        background: #1e1e1e;
+    }
+
+    .section-title {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+        .section-title i {
+            color: #e63312;
+        }
+
+    /* ==================== CATEGORIES ==================== */
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 14px;
+    }
+
+    .cat-card {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        height: 200px;
+        display: block;
+        border: 1px solid #1e1e1e;
+    }
+
+        .cat-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s;
+            filter: brightness(.85);
+        }
+
+        .cat-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(.65);
+        }
+
+    .cat-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.88));
+        padding: 20px 12px 14px;
+        text-align: center;
+    }
+
+        .cat-overlay span {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .3px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+    .cat-card:hover .cat-overlay span {
+        color: #e63312;
+    }
+
+    /* ==================== PRODUCTS ==================== */
+    .products-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
-        padding: 40px;
     }
 
-    .card {
-        background: #141414;
+    .prod-card {
+        background: #111;
         border-radius: 12px;
         overflow: hidden;
-        transition: 0.3s;
+        border: 1px solid #1e1e1e;
+        transition: transform .3s, border-color .3s;
     }
 
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
+        .prod-card:hover {
+            transform: translateY(-8px);
+            border-color: #e63312;
         }
 
-    .card-content {
-        padding: 15px;
+    .prod-img-wrap {
+        height: 200px;
+        overflow: hidden;
+    }
+
+        .prod-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s;
+        }
+
+    .prod-card:hover .prod-img-wrap img {
+        transform: scale(1.06);
+    }
+
+    .prod-body {
+        padding: 18px;
         text-align: center;
     }
 
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 0 20px rgba(255,0,0,0.5);
+    .prod-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #ddd;
+        margin-bottom: 8px;
+        line-height: 1.4;
+        font-family: 'Noto Sans', sans-serif;
     }
 
-    /* ПРОДУКТИ */
-    .products {
-        display: flex;
-        justify-content: space-around;
-        padding: 40px;
+    .prod-price {
+        color: #e63312;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: 'Rajdhani', sans-serif;
+        letter-spacing: .5px;
+        margin-bottom: 14px;
     }
 
-    .product {
-        background: #1a1a1a;
-        padding: 15px;
-        border-radius: 10px;
-        width: 22%;
-        text-align: center;
+    .btn-prod {
+        display: block;
+        background: none;
+        color: #aaa;
+        border: 1px solid #2a2a2a;
+        border-radius: 7px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all .2s;
+        font-family: 'Noto Sans', sans-serif;
     }
 
-        .product img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
+        .btn-prod:hover {
+            background: #e63312;
+            color: #fff;
+            border-color: #e63312;
         }
 
-    .price {
-        color: #ff1a1a;
-        font-weight: bold;
+    /* ALL PRODUCTS BTN */
+    .btn-all {
+        display: inline-block;
+        border: 1px solid #2a2a2a;
+        color: #aaa;
+        padding: 12px 36px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all .2s;
+        font-family: 'Noto Sans', sans-serif;
+    }
+
+        .btn-all:hover {
+            border-color: #e63312;
+            color: #e63312;
+        }
+
+    /* ==================== RESPONSIVE ==================== */
+    @@media (max-width: 1200px) {
+        .categories-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 640px) {
+        .categories-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-title {
+            font-size: 48px;
+        }
     }
 </style>
-
-<!-- HERO -->
-<div class="hero">
-    <div class="hero-content">
-        <h1>AutoPartsShop</h1>
-        <p>Интериорни и тунинг части за твоя автомобил</p>
-        <a href="/Products" class="btn-main">Разгледай</a>
-    </div>
-</div>
-
-<!-- КАТЕГОРИИ -->
-<div class="categories">
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2">
-        <div class="card-content">
-            <h3>Интериор</h3>
-            <p>Волани, седалки, LED</p>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a">
-        <div class="card-content">
-            <h3>Тунинг</h3>
-            <p>Спортни части и визия</p>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537">
-        <div class="card-content">
-            <h3>Осветление</h3>
-            <p>LED, амбиентно</p>
-        </div>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d">
-        <div class="card-content">
-            <h3>Аксесоари</h3>
-            <p>Всичко за колата</p>
-        </div>
-    </div>
-
-</div>
-
-<!-- ПРОДУКТИ -->
-<div class="products">
-
-    <div class="product">
-        <img src="https://images.unsplash.com/photo-1617814076668-7f0c2f0f1e3d">
-        <h4>Спортен волан</h4>
-        <p class="price">120 лв.</p>
-    </div>
-
-    <div class="product">
-        <img src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c4">
-        <h4>LED интериорно осветление</h4>
-        <p class="price">45 лв.</p>
-    </div>
-
-    <div class="product">
-        <img src="https://images.unsplash.com/photo-1610647752706-3bb12232b3ab">
-        <h4>Спортни педали</h4>
-        <p class="price">60 лв.</p>
-    </div>
-
-    <div class="product">
-        <img src="https://images.unsplash.com/photo-1597002973879-0f0a1c8b8cb7">
-        <h4>Седалки (тунинг)</h4>
-        <p class="price">350 лв.</p>
-    </div>
-
-</div>

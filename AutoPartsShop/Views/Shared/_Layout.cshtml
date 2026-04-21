@@ -3,152 +3,196 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AutoPartsShop</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AutoPartsShop.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-dark custom-navbar mb-3">
-            <div class="container-fluid">
+    <title>@ViewData["Title"] - AutoPartShop</title>
 
-                <!-- ЛОГО -->
-                <a class="navbar-brand fw-bold text-danger" asp-area="" asp-controller="Home" asp-action="Index">
-                    🚗 AutoPartsShop
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AutoPartShop.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+        var cartJson = Context.Session.GetString("cart");
+        int cartCount = 0;
+
+        if (!string.IsNullOrEmpty(cartJson))
+        {
+            var cart = System.Text.Json.JsonSerializer.Deserialize<List<AutoPartsShop.Models.Cart.CartItemVM>>(cartJson);
+            cartCount = cart?.Sum(x => x.Quantity) ?? 0;
+        }
+    }
+
+    <!-- HEADER -->
+    <header>
+        <nav class="navbar navbar-expand-lg custom-navbar">
+            <div class="container">
+
+                <!-- LOGO -->
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-car-side"></i>
+                    <span>AutoPartShop</span>
                 </a>
 
-                <!-- MOBILE BUTTON -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
+                <!-- MOBILE TOGGLE -->
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon custom-toggler-icon"></span>
                 </button>
 
-                <!-- MENU -->
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <!-- NAVIGATION -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
 
-                    <ul class="navbar-nav me-auto">
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Начало</a>
-                        </li>
+                    <ul class="navbar-nav me-auto nav-links-custom">
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Product" asp-action="Index">Продукти</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Order" asp-action="MyOrders">Поръчки</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">За нас</a>
-                        </li>
-
-                    </ul>
-
-                    <!-- ДЯСНА ЧАСТ -->
-                    <ul class="navbar-nav">
-
-                        <li class="nav-item">
-                            <a class="nav-link cart-link" href="/Cart">
-                                🛒 Количка
+                            <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active-link" : "")"
+                               asp-controller="Home" asp-action="Index">
+                                <i class="fa-solid fa-house"></i> Home
                             </a>
                         </li>
 
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Home" && currentAction == "About" ? "active-link" : "")"
+                               asp-controller="Home" asp-action="About">
+                                <i class="fa-solid fa-circle-info"></i> About Us
+                            </a>
+                        </li>
 
-                </div>
-            </div>
-        </nav>
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Product" && currentAction == "Index" ? "active-link" : "")"
+                               asp-controller="Product" asp-action="Index">
+                                <i class="fa-solid fa-box-open"></i> Products
+                            </a>
+                        </li>
 
-        <style>
-            .custom-navbar {
-                background-color: #0b0b0b;
-                border-bottom: 2px solid #ff1a1a;
-            }
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Order" && currentAction == "MyOrders" ? "active-link" : "")"
+                               asp-controller="Order" asp-action="MyOrders">
+                                <i class="fa-solid fa-bag-shopping"></i> My Orders
+                            </a>
+                        </li>
 
-            .navbar-brand {
-                font-size: 22px;
-                letter-spacing: 1px;
-            }
+                        <!-- BRANDS DROPDOWN -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(currentController == "Product" ? "active-link" : "")"
+                               href="#"
+                               id="brandsDropdown"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa-solid fa-car"></i> Car Brands
+                            </a>
 
-            .nav-link {
-                color: #ccc !important;
-                margin: 0 10px;
-                transition: 0.3s;
-            }
-
-                .nav-link:hover {
-                    color: #ff1a1a !important;
-                    transform: scale(1.05);
-                }
-
-            .cart-link {
-                background: #ff1a1a;
-                padding: 6px 15px;
-                border-radius: 8px;
-                color: white !important;
-                font-weight: bold;
-            }
-
-                .cart-link:hover {
-                    background: #cc0000;
-                }
-        </style>
-
-                        <li class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                Products
-                            </button>
-
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <ul class="dropdown-menu custom-dropdown">
                                 <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Vw">VW</a></li>
                                 <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Bmw">BMW</a></li>
-                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Mercedes">MERCEDES</a></li>
-                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Audi">AUDI</a></li>
-                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Toyota">TOYOTA</a></li>
-                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Honda">HONDA</a></li>
-                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Opel">OPEL</a></li>
-                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Seat">SEAT</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Mercedes">Mercedes</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Audi">Audi</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Toyota">Toyota</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Honda">Honda</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Opel">Opel</a></li>
+                                <li><a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-searchStringBrandName="Seat">Seat</a></li>
                             </ul>
                         </li>
 
-                        @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Administrator")))
+                        <!-- ADMIN PANEL -->
+                        @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
                         {
-                            <li class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                    Statistic Modul
-                                </button>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle @(currentController == "Client" || currentController == "Statistic" || (currentController == "Order" && currentAction == "Index") ? "active-link" : "")"
+                                   href="#"
+                                   id="adminDropdown"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                                </a>
 
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="/Client/index">Clients</a></li>
+                                <ul class="dropdown-menu custom-dropdown">
+                                    <li><a class="dropdown-item" href="/Client/Index">Clients</a></li>
                                     <li><a class="dropdown-item" href="/Order/Index">Orders</a></li>
-                                    <li><a class="dropdown-item" href="/Statistic/Index">Statistic</a></li>
+                                    <li><a class="dropdown-item" href="/Statistic/Index">Statistics</a></li>
                                 </ul>
                             </li>
                         }
+
                     </ul>
-                    <partial name="_LoginPartial" />
+
+                    <!-- RIGHT SIDE -->
+                    <div class="d-flex align-items-center gap-3 right-nav-section">
+
+                        <a asp-controller="Favourites" asp-action="Index" class="nav-icon" title="Favourites">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
+
+                        <a asp-controller="Cart" asp-action="Index" class="nav-icon cart-wrapper" title="Cart">
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                            @if (cartCount > 0)
+                            {
+                                <span class="cart-badge">@cartCount</span>
+                            }
+                        </a>
+
+                        <partial name="_LoginPartial" />
+
+                    </div>
+
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - AutoPartsShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- MAIN CONTENT -->
+    <main class="main-section">
+        <div class="container py-4">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="custom-footer">
+        <div class="container text-center">
+            <h4>AutoPartShop</h4>
+            <p>Premium Interior Car Parts for Real Enthusiasts</p>
+
+            <div class="footer-links">
+                <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                <a asp-controller="Home" asp-action="About">About Us</a>
+                <a asp-controller="Product" asp-action="Index">Products</a>
+                <a asp-controller="Order" asp-action="MyOrders">Orders</a>
+            </div>
+
+            <p class="copyright">
+                &copy; 2026 AutoPartShop — All Rights Reserved
+            </p>
         </div>
     </footer>
+
+    <!-- SCRIPTS -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

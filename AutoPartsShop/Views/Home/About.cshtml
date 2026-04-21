@@ -1,0 +1,354 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<style>
+    body {
+        background: #f5f7fb;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .about-wrapper {
+        max-width: 1200px;
+        margin: 30px auto;
+    }
+
+    .about-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+        .about-header h1 {
+            color: #111827;
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .about-header p {
+            color: #6b7280;
+            font-size: 15px;
+            margin: 0;
+        }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 24px;
+    }
+
+    .info-card,
+    .form-card {
+        background: white;
+        border-radius: 18px;
+        padding: 26px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: #111827;
+    }
+
+    .about-text {
+        color: #4b5563;
+        line-height: 1.8;
+        margin-bottom: 24px;
+    }
+
+    .brand-highlight {
+        color: #2563eb;
+        font-weight: 700;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 18px;
+        color: #4b5563;
+    }
+
+        .info-item i {
+            color: #2563eb;
+            font-size: 18px;
+            margin-top: 4px;
+            min-width: 20px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #111827;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+    .social-box {
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+        .social-box h5 {
+            color: #111827;
+            margin-bottom: 14px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+    .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        margin-right: 10px;
+        text-decoration: none;
+        background: #f3f4f6;
+        color: #111827;
+        transition: 0.25s ease;
+        border: 1px solid #e5e7eb;
+    }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .form-subtitle {
+        color: #6b7280;
+        font-size: 13px;
+        margin-bottom: 18px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .custom-label {
+        display: block;
+        color: #374151;
+        font-size: 13px;
+        margin-bottom: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+
+    .custom-input,
+    .custom-select,
+    .custom-textarea {
+        width: 100%;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        color: #111827;
+        border-radius: 10px;
+        padding: 12px 14px;
+        outline: none;
+        transition: 0.2s ease;
+        margin-bottom: 16px;
+    }
+
+        .custom-input:focus,
+        .custom-select:focus,
+        .custom-textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+    .custom-textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    .send-btn {
+        width: 100%;
+        border: none;
+        background: #111827;
+        color: white;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 10px;
+        transition: 0.25s ease;
+    }
+
+        .send-btn:hover {
+            background: #2563eb;
+        }
+
+    .about-mini-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .mini-stat {
+        background: #f9fafb;
+        border-radius: 12px;
+        padding: 14px;
+        text-align: center;
+        border: 1px solid #eef2f7;
+    }
+
+        .mini-stat h4 {
+            margin: 0;
+            color: #111827;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .mini-stat p {
+            margin: 4px 0 0 0;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+    @@media (max-width: 991.98px) {
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .about-header h1 {
+            font-size: 32px;
+        }
+    }
+
+    @@media (max-width: 575.98px) {
+        .form-row-2 {
+            grid-template-columns: 1fr;
+        }
+
+        .about-mini-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="about-wrapper">
+
+    <div class="about-header">
+        <h1>About Us</h1>
+        <p>Premium interior car parts, modern design and reliable service in one place</p>
+    </div>
+
+    <div class="about-grid">
+
+        <!-- LEFT SIDE -->
+        <div class="info-card">
+            <h2 class="card-title">Who We Are</h2>
+
+            <p class="about-text">
+                Welcome to <span class="brand-highlight">AutoPartShop</span> — your place for premium interior car parts,
+                stylish accessories and carefully selected products for real automotive enthusiasts.
+                We focus on quality, modern vision and a shopping experience that feels clean, fast and reliable.
+            </p>
+
+            <div class="info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                    <strong>Address</strong>
+                    Pernik, Bulgaria
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                    <strong>Email</strong>
+                    support@autopartshop.bg
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                    <strong>Phone</strong>
+                    +359 888 000 111
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fa-solid fa-car-side"></i>
+                <div>
+                    <strong>What We Offer</strong>
+                    Interior trim, steering accessories, premium details, comfort upgrades and stylish car essentials.
+                </div>
+            </div>
+
+            <div class="about-mini-stats">
+                <div class="mini-stat">
+                    <h4>500+</h4>
+                    <p>Products</p>
+                </div>
+                <div class="mini-stat">
+                    <h4>1000+</h4>
+                    <p>Clients</p>
+                </div>
+                <div class="mini-stat">
+                    <h4>24/7</h4>
+                    <p>Support</p>
+                </div>
+            </div>
+
+            <div class="social-box">
+                <h5>Follow Us</h5>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="form-card">
+            <h2 class="card-title">Send a Message</h2>
+            <p class="form-subtitle">Questions, support or product inquiries</p>
+
+            <form method="post" action="#">
+                <div class="form-row-2">
+                    <div>
+                        <label class="custom-label">Your Name</label>
+                        <input type="text" class="custom-input" placeholder="Enter your name" />
+                    </div>
+
+                    <div>
+                        <label class="custom-label">Email Address</label>
+                        <input type="email" class="custom-input" placeholder="example@email.com" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="custom-label">Subject</label>
+                    <select class="custom-select">
+                        <option>General Inquiry</option>
+                        <option>Order Support</option>
+                        <option>Product Question</option>
+                        <option>Partnership</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="custom-label">Message</label>
+                    <textarea class="custom-textarea" placeholder="Write your message here..."></textarea>
+                </div>
+
+                <button type="submit" class="send-btn">
+                    <i class="fa-regular fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>

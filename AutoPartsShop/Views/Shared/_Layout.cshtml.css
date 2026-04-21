@@ -1,48 +1,186 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f7fb;
 }
 
-a {
-  color: #0077cc;
+/* ===== MAIN CENTERED LAYOUT ===== */
+.main-section {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    .main-section .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    }
+
+/* ===== NAVBAR ===== */
+.custom-navbar {
+    background: linear-gradient(90deg, #0f172a, #111827);
+    padding: 14px 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    .custom-navbar .container {
+        max-width: 1200px;
+    }
+
+    .custom-navbar .navbar-brand,
+    .custom-navbar .nav-link {
+        color: white !important;
+        font-weight: 500;
+    }
+
+    .custom-navbar .navbar-brand {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+/* ===== NAV LINKS ===== */
+.nav-links-custom .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 6px;
+    transition: 0.2s ease;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.custom-navbar .nav-link:hover {
+    color: #38bdf8 !important;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+/* ===== ACTIVE LINK ===== */
+.active-link {
+    color: #38bdf8 !important;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    .active-link::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: -6px;
+        height: 2px;
+        background: #38bdf8;
+        border-radius: 2px;
+    }
+
+/* ===== RIGHT NAV SECTION ===== */
+.right-nav-section {
+    gap: 14px;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+.nav-icon {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    transition: 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .nav-icon:hover {
+        color: #38bdf8;
+        transform: translateY(-1px);
+    }
+
+/* ===== CART BADGE ===== */
+.cart-wrapper {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -7px;
+    right: -10px;
+    background: #ef4444;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 999px;
+    min-width: 19px;
+    text-align: center;
+    line-height: 1;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
+}
+
+/* ===== DROPDOWN ===== */
+.dropdown-menu {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: 0.2s ease;
+}
+
+    .dropdown-item:hover {
+        background: #f3f4f6;
+    }
+
+/* ===== NAVBAR TOGGLER ===== */
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+/* ===== FOOTER ===== */
+.custom-footer {
+    background: #111827;
+    color: white;
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+    .custom-footer a {
+        color: #38bdf8;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+        .custom-footer a:hover {
+            text-decoration: underline;
+        }
+
+.footer-links {
+    margin: 15px 0;
+}
+
+.copyright {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 991.98px) {
+    .right-nav-section {
+        margin-top: 15px;
+        justify-content: flex-start;
+    }
+
+    .nav-links-custom .nav-link {
+        margin-bottom: 6px;
+    }
+
+    .active-link::after {
+        display: none;
+    }
+
+    .main-section .container {
+        padding: 20px;
+    }
 }

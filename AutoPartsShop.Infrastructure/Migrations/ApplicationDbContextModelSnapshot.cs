@@ -141,6 +141,30 @@ namespace AutoPartsShop.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("AutoPartsShop.Infrastructure.Data.Entities.Favourite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favourites");
+                });
+
             modelBuilder.Entity("AutoPartsShop.Infrastructure.Data.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -357,6 +381,25 @@ namespace AutoPartsShop.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AutoPartsShop.Infrastructure.Data.Entities.Favourite", b =>
+                {
+                    b.HasOne("AutoPartsShop.Infrastructure.Data.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AutoPartsShop.Infrastructure.Data.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AutoPartsShop.Infrastructure.Data.Entities.Order", b =>

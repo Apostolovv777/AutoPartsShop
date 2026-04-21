@@ -1,5 +1,7 @@
 using System.Diagnostics;
+
 using AutoPartsShop.Models;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoPartsShop.Controllers
@@ -19,6 +21,11 @@ namespace AutoPartsShop.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult About()
         {
             return View();
         }

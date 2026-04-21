@@ -3,25 +3,122 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+    <div class="d-flex align-items-center gap-2">
+        <a class="user-greeting" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <div class="user-avatar-nav">
+                @User.Identity?.Name?.Substring(0, 1).ToUpper()
+            </div>
+            <span class="user-name d-none d-lg-inline">@User.Identity?.Name</span>
+        </a>
+        <form class="m-0" asp-area="Identity" asp-page="/Account/Logout"
+              asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
         </form>
-    </li>
+    </div>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+    <div class="d-flex align-items-center gap-2">
+        <a class="btn-nav-register" asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
+        <a class="btn-nav-login" asp-area="Identity" asp-page="/Account/Login">Вход</a>
+    </div>
 }
-</ul>
+
+<style>
+    .user-greeting {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        padding: 4px 8px;
+        border-radius: 8px;
+        transition: background .2s;
+    }
+
+        .user-greeting:hover {
+            background: #1a1a1a;
+        }
+
+    .user-avatar-nav {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(230, 51, 18, 0.15);
+        border: 1px solid rgba(230, 51, 18, 0.3);
+        color: #e63312;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .user-name {
+        color: #ccc;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: 'Noto Sans', sans-serif;
+    }
+
+    .btn-logout {
+        width: 34px;
+        height: 34px;
+        background: none;
+        border: 1px solid #2a2a2a;
+        border-radius: 7px;
+        color: #666;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .2s;
+        padding: 0;
+    }
+
+        .btn-logout:hover {
+            border-color: #e63312;
+            color: #e63312;
+            background: rgba(230, 51, 18, 0.08);
+        }
+
+    .btn-nav-register {
+        color: #aaa;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 6px 14px;
+        border-radius: 7px;
+        border: 1px solid #2a2a2a;
+        transition: all .2s;
+        font-family: 'Noto Sans', sans-serif;
+    }
+
+        .btn-nav-register:hover {
+            color: #fff;
+            border-color: #444;
+        }
+
+    .btn-nav-login {
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 6px 16px;
+        border-radius: 7px;
+        background: #e63312;
+        border: 1px solid #e63312;
+        transition: background .2s;
+        font-family: 'Noto Sans', sans-serif;
+    }
+
+        .btn-nav-login:hover {
+            background: #c4290e;
+            color: #fff;
+        }
+</style>

@@ -8,13 +8,17 @@ namespace AutoPartsShop.Models.Product
     {
         [Key]
         public int Id { get; set; }
+
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
 
         public int BrandId { get; set; }
+
         [Display(Name = "Brand")]
         public string BrandName { get; set; }
+
         public int CategoryId { get; set; }
+
         [Display(Name = "Category")]
         public string CategoryName { get; set; }
 
@@ -29,11 +33,10 @@ namespace AutoPartsShop.Models.Product
 
         [Display(Name = "Price")]
         public decimal Price { get; set; }
+
         [Display(Name = "Discount")]
         public decimal Discount { get; set; }
 
-       
-
+        public decimal FinalPrice => Price - (Price * Discount / 100);
     }
-
 }

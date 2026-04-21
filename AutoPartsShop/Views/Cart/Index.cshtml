@@ -1,0 +1,226 @@
+﻿@model List<AutoPartsShop.Models.Cart.CartItemVM>
+
+@{
+    ViewData["Title"] = "My Cart";
+    var grandTotal = Model.Sum(x => x.TotalPrice);
+}
+
+<style>
+    body {
+        background: #f5f7fb;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .cart-page {
+        max-width: 1200px;
+        margin: 30px auto;
+    }
+
+    .cart-title {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+        .cart-title h1 {
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .cart-title p {
+            color: #6b7280;
+        }
+
+    .cart-card {
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        padding: 20px;
+    }
+
+    .cart-table th {
+        background: #111827;
+        color: white;
+        padding: 14px;
+        text-align: center;
+    }
+
+    .cart-table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 14px;
+    }
+
+    .cart-img {
+        width: 90px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+    }
+
+    .qty-btn {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: white;
+        margin: 0 3px;
+        font-weight: 600;
+    }
+
+    .btn-plus {
+        background: #16a34a;
+    }
+
+    .btn-minus {
+        background: #f59e0b;
+    }
+
+    .btn-remove {
+        background: #dc2626;
+    }
+
+    .btn-clear {
+        background: #111827;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+        border: none;
+    }
+
+        .btn-clear:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+    .btn-order {
+        background: #16a34a;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+        border: none;
+        font-weight: 600;
+    }
+
+        .btn-order:hover {
+            background: #15803d;
+            color: white;
+        }
+
+    .total-box {
+        text-align: right;
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #16a34a;
+    }
+
+    .empty-cart {
+        text-align: center;
+        background: white;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+
+        .empty-cart h3 {
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .empty-cart a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            background: #111827;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+        }
+
+            .empty-cart a:hover {
+                background: #2563eb;
+            }
+
+    .cart-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="cart-page">
+
+    <div class="cart-title">
+        <h1>🛒 My Cart</h1>
+        <p>Review your selected products</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-cart">
+            <h3>Your cart is empty</h3>
+            <p class="text-muted">Add some premium products to get started.</p>
+            <a asp-controller="Product" asp-action="Index">Go to Products</a>
+        </div>
+    }
+    else
+    {
+        <div class="cart-card">
+            <div class="table-responsive">
+                <table class="table cart-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@item.ImageUrl" class="cart-img" />
+                                </td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Price лв.</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.TotalPrice лв.</td>
+                                <td>
+                                    <a asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId" class="qty-btn btn-plus">+</a>
+                                    <a asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId" class="qty-btn btn-minus">-</a>
+                                    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId" class="qty-btn btn-remove">Remove</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="total-box">
+                Grand Total: @grandTotal лв.
+            </div>
+
+            <div class="cart-buttons">
+                <a asp-controller="Cart" asp-action="Clear" class="btn-clear">Clear Cart</a>
+
+                <form asp-controller="Cart" asp-action="Checkout" method="post" style="margin:0;">
+                    <button type="submit" class="btn-order">Place Order</button>
+                </form>
+            </div>
+        </div>
+    }
+
+</div>

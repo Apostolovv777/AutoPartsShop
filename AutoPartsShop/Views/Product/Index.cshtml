@@ -1,60 +1,76 @@
 ﻿@model IEnumerable<AutoPartsShop.Models.Product.ProductIndexVM>
 
 @{
-    ViewData["Title"] = "Продукти";
+    ViewData["Title"] = "Products";
 }
 
 <style>
     body {
-        background-color: #0b0b0b;
-        color: white;
+        background: #f5f7fb;
+        font-family: 'Poppins', sans-serif;
     }
 
-    h1 {
+    .page-title {
         text-align: center;
-        margin-bottom: 30px;
-        color: #ff1a1a;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
-    /* FILTER */
+        .page-title h1 {
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .page-title p {
+            color: #6b7280;
+        }
+
     .filter-box {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
         .filter-box input {
-            padding: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
             margin: 5px;
-            border-radius: 5px;
-            border: none;
+            outline: none;
         }
 
         .filter-box button {
-            padding: 8px 20px;
-            background: #ff1a1a;
+            padding: 10px 20px;
+            background: #111827;
             border: none;
             color: white;
-            border-radius: 5px;
+            border-radius: 10px;
+            transition: 0.2s;
         }
 
-    /* GRID */
+            .filter-box button:hover {
+                background: #2563eb;
+            }
+
     .products-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         gap: 25px;
-        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px;
     }
 
     .product-card {
-        background: #141414;
-        border-radius: 12px;
+        background: white;
+        border-radius: 16px;
         overflow: hidden;
-        transition: 0.3s;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        transition: 0.25s ease;
     }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
         }
 
         .product-card img {
@@ -68,95 +84,142 @@
         text-align: center;
     }
 
+        .product-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+    .product-meta {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 8px;
+    }
+
     .price {
-        color: #ff1a1a;
-        font-weight: bold;
         font-size: 18px;
+        font-weight: 700;
+        color: #16a34a;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: #9ca3af;
+        font-size: 13px;
     }
 
     .btn-main {
-        background: #ff1a1a;
+        background: #111827;
         border: none;
-        padding: 8px 15px;
-        border-radius: 5px;
+        padding: 8px 14px;
+        border-radius: 10px;
         color: white;
         text-decoration: none;
         display: inline-block;
-        margin-top: 10px;
+        margin-top: 8px;
+        transition: 0.2s;
     }
 
         .btn-main:hover {
-            background: #cc0000;
+            background: #2563eb;
         }
 
-    .admin-btns a {
-        margin: 3px;
+    .btn-outline {
+        border: 1px solid #ef4444;
+        color: #ef4444;
+        padding: 6px 10px;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 8px;
     }
+
+        .btn-outline:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+    .admin-btns {
+        margin-top: 10px;
+    }
+
+        .admin-btns a {
+            margin: 3px;
+            font-size: 12px;
+        }
 </style>
 
-<h1>🛒 Продукти</h1>
+<div class="page-title">
+    <h1>🛒 Products</h1>
+    <p>Premium car interior parts for real enthusiasts</p>
+</div>
 
-
-<!-- ADMIN BUTTON -->
 @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
 {
     <div style="text-align:center; margin-bottom:20px;">
-        <a asp-action="Create" class="btn-main">➕ Добави продукт</a>
+        <a asp-action="Create" class="btn-main">➕ Add Product</a>
     </div>
 }
 
-<!-- PRODUCTS GRID -->
+<div class="filter-box">
+    <form>
+        <input type="text" placeholder="Search..." />
+        <button type="submit">Filter</button>
+    </form>
+</div>
+
 <div class="products-grid">
 
     @foreach (var item in Model)
     {
         <div class="product-card">
 
-            <img src="@item.Picture" alt="product">
+            <img src="@item.Picture" />
 
             <div class="product-info">
+
                 <h4>@item.ProductName</h4>
 
-                <p>@item.BrandName | @item.CategoryName</p>
+                <div class="product-meta">
+                    @item.BrandName | @item.CategoryName
+                </div>
 
-                <p class="price">
-                    @(item.Price - (item.Price * item.Discount / 100)) лв.
-                </p>
+                <div class="price">
+                    @item.FinalPrice лв.
+                </div>
 
                 @if (item.Discount > 0)
                 {
-                    <small style="text-decoration: line-through;">
+                    <div class="old-price">
                         @item.Price лв.
-                    </small>
+                    </div>
                 }
 
-                <!-- FAVORITE BUTTON -->
                 <a asp-controller="Favourites"
                    asp-action="Add"
                    asp-route-id="@item.Id"
-                   class="btn btn-outline-danger mt-2">
-                    ❤️ Любими
+                   class="btn-outline">
+                    ❤️ Favorites
                 </a>
 
                 <br />
 
-                <!-- ADD TO CART -->
-                <a href="/Cart/AddToCart?id=@item.Id&name=@item.ProductName&price=@item.Price&imageUrl=@item.Picture"
+                <a href="/Cart/AddToCart?id=@item.Id&name=@item.ProductName&price=@item.FinalPrice&imageUrl=@item.Picture"
                    class="btn-main">
-                    🛒 Добави
+                    🛒 Add to Cart
                 </a>
 
                 <br />
 
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success mt-2">
-                    Детайли
+                <a asp-action="Details" asp-route-id="@item.Id"
+                   class="btn-main">
+                    Details
                 </a>
 
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
                 {
                     <div class="admin-btns">
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                     </div>
                 }
 
