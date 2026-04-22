@@ -5,58 +5,59 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<div class="login-wrap">
-    <div class="login-card">
+<div class="auth-page">
+    <div class="auth-card">
 
-        <!-- ЛОГО / ЗАГЛАВИЕ -->
-        <div class="login-header">
-            <div class="login-icon">
-                <i class="fas fa-user"></i>
+        <div class="auth-header">
+            <div class="auth-icon">
+                <i class="fa-solid fa-user-lock"></i>
             </div>
-            <h1 class="login-title">Добре дошъл</h1>
-            <p class="login-sub">Влез в своя акаунт</p>
+            <h1 class="auth-title">Добре дошъл</h1>
+            <p class="auth-subtitle">Влез в своя AutoPartShop акаунт</p>
         </div>
 
         <form id="account" method="post">
             <div asp-validation-summary="ModelOnly" class="alert-error" role="alert"></div>
 
-            <!-- USERNAME -->
             <div class="field-group">
                 <label asp-for="Input.UserName" class="field-label">
-                    <i class="fas fa-envelope"></i> Потребителско име
+                    Потребителско име
                 </label>
                 <input asp-for="Input.UserName"
                        class="field-input"
                        autocomplete="username"
                        aria-required="true"
-                       placeholder="name@example.com" />
+                       placeholder="Въведи потребителско име" />
                 <span asp-validation-for="Input.UserName" class="field-error"></span>
             </div>
 
-            <!-- PASSWORD -->
             <div class="field-group">
                 <label asp-for="Input.Password" class="field-label">
-                    <i class="fas fa-lock"></i> Парола
+                    Парола
                 </label>
                 <input asp-for="Input.Password"
                        class="field-input"
                        autocomplete="current-password"
                        aria-required="true"
-                       placeholder="••••••••" />
+                       placeholder="Въведи парола" />
                 <span asp-validation-for="Input.Password" class="field-error"></span>
             </div>
 
-            <!-- SUBMIT -->
-            <button id="login-submit" type="submit" class="btn-login">
-                <i class="fas fa-sign-in-alt me-2"></i> Влез в акаунта
+            <button id="login-submit" type="submit" class="btn-auth">
+                <i class="fa-solid fa-right-to-bracket me-2"></i> Вход
             </button>
         </form>
+
+        <div class="auth-footer-text">
+            Нямаш акаунт?
+            <a asp-page="./Register">Регистрация</a>
+        </div>
 
     </div>
 </div>
 
 <style>
-    .login-wrap {
+    .auth-page {
         min-height: 70vh;
         display: flex;
         align-items: center;
@@ -64,131 +65,132 @@
         padding: 40px 16px;
     }
 
-    .login-card {
-        background: #0f0f0f;
-        border: 1px solid #1e1e1e;
-        border-radius: 16px;
-        padding: 40px 36px;
+    .auth-card {
         width: 100%;
-        max-width: 420px;
+        max-width: 460px;
+        background: #ffffff;
+        border-radius: 22px;
+        padding: 36px 30px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     }
 
-    /* HEADER */
-    .login-header {
+    .auth-header {
         text-align: center;
-        margin-bottom: 32px;
+        margin-bottom: 28px;
     }
 
-    .login-icon {
-        width: 56px;
-        height: 56px;
-        background: rgba(230, 51, 18, 0.12);
-        border: 1px solid rgba(230, 51, 18, 0.25);
-        border-radius: 14px;
+    .auth-icon {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 16px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #111827, #1f2937);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #e63312;
-        font-size: 22px;
-        margin: 0 auto 16px;
-    }
-
-    .login-title {
-        font-family: 'Rajdhani', sans-serif;
+        color: white;
         font-size: 28px;
-        font-weight: 700;
-        color: #fff;
-        letter-spacing: 1px;
-        margin: 0 0 6px;
+        box-shadow: 0 10px 24px rgba(17, 24, 39, 0.18);
     }
 
-    .login-sub {
-        color: #555;
-        font-size: 13px;
+    .auth-title {
+        color: #111827;
+        font-size: 38px;
+        font-weight: 800;
+        margin: 0 0 8px 0;
+    }
+
+    .auth-subtitle {
+        color: #6b7280;
         margin: 0;
+        font-size: 15px;
     }
 
-    /* FIELDS */
     .field-group {
         margin-bottom: 18px;
     }
 
     .field-label {
         display: block;
-        color: #666;
-        font-size: 12px;
+        color: #374151;
+        font-size: 13px;
         font-weight: 600;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
         margin-bottom: 8px;
-        font-family: 'Noto Sans', sans-serif;
+        letter-spacing: 0.4px;
     }
-
-        .field-label i {
-            color: #e63312;
-            margin-right: 6px;
-            font-size: 11px;
-        }
 
     .field-input {
         width: 100%;
-        background: #141414;
-        border: 1px solid #2a2a2a;
-        color: #e0e0e0;
-        border-radius: 8px;
-        padding: 12px 16px;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        color: #111827;
+        border-radius: 12px;
+        padding: 14px 16px;
         font-size: 14px;
-        font-family: 'Noto Sans', sans-serif;
         outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
+        transition: 0.2s ease;
     }
 
         .field-input::placeholder {
-            color: #444;
+            color: #9ca3af;
         }
 
         .field-input:focus {
-            border-color: #e63312;
-            box-shadow: 0 0 0 3px rgba(230, 51, 18, 0.1);
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
 
     .field-error {
         display: block;
-        color: #e63312;
+        color: #dc2626;
         font-size: 12px;
-        margin-top: 5px;
+        margin-top: 6px;
     }
 
     .alert-error {
-        background: rgba(230, 51, 18, 0.08);
-        border: 1px solid rgba(230, 51, 18, 0.2);
-        color: #e63312;
-        border-radius: 8px;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        border-radius: 10px;
         padding: 10px 14px;
         font-size: 13px;
         margin-bottom: 18px;
     }
 
-    /* BUTTON */
-    .btn-login {
+    .btn-auth {
         width: 100%;
-        background: #e63312;
+        background: #111827;
         color: #fff;
         border: none;
-        border-radius: 8px;
-        padding: 13px;
-        font-size: 14px;
-        font-weight: 600;
-        font-family: 'Noto Sans', sans-serif;
-        letter-spacing: 0.5px;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 700;
         cursor: pointer;
-        transition: background 0.2s;
+        transition: 0.2s ease;
         margin-top: 8px;
     }
 
-        .btn-login:hover {
-            background: #c4290e;
+        .btn-auth:hover {
+            background: #2563eb;
         }
+
+    .auth-footer-text {
+        text-align: center;
+        margin-top: 18px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+        .auth-footer-text a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .auth-footer-text a:hover {
+                text-decoration: underline;
+            }
 </style>
 
 @section Scripts {
