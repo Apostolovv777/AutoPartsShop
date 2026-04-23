@@ -1,80 +1,232 @@
-﻿using Microsoft.AspNetCore.Mvc;
-@model AutoPartsShop.Models.Product.ProductCreateVM
+﻿@model AutoPartsShop.Models.Product.ProductCreateVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Product";
 }
 
-<h1>Create</h1>
+<style>
+    body {
+        background: #f5f7fb;
+        font-family: 'Poppins', sans-serif;
+    }
 
-<h4>ProductCreateVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
+    .create-page {
+        max-width: 950px;
+        margin: 30px auto;
+    }
+
+    .create-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .create-header h1 {
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 8px;
+    }
+
+    .create-header p {
+        color: #6b7280;
+        margin-bottom: 0;
+    }
+
+    .create-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        padding: 28px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .form-group-full {
+        grid-column: 1 / -1;
+    }
+
+    .custom-label {
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 12px;
+        min-height: 48px;
+        border: 1px solid #d1d5db;
+        box-shadow: none !important;
+        padding: 10px 14px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+    }
+
+    textarea.form-control {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .text-danger {
+        font-size: 13px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .btn-main {
+        background: #111827;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 22px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s ease;
+        display: inline-block;
+    }
+
+    .btn-main:hover {
+        background: #2563eb;
+        color: white;
+    }
+
+    .btn-outline {
+        background: white;
+        color: #111827;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        padding: 12px 22px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s ease;
+        display: inline-block;
+    }
+
+    .btn-outline:hover {
+        background: #f3f4f6;
+        color: #111827;
+    }
+
+    .form-note {
+        background: #f9fafb;
+        border: 1px solid #eef2f7;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 22px;
+        color: #4b5563;
+        font-size: 14px;
+    }
+
+    @@media (max-width: 767.98px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .create-card {
+            padding: 20px;
+        }
+    }
+</style>
+
+<div class="create-page">
+
+    <div class="create-header">
+        <h1>Create Product</h1>
+        <p>Add a new product to the AutoPartsShop catalog</p>
+    </div>
+
+    <div class="create-card">
+        <div class="form-note">
+            Fill in the product details carefully. Make sure the image URL, price and quantity are correct before saving.
+        </div>
+
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-grid">
+
+                <div class="form-group-full">
+                    <label asp-for="ProductName" class="custom-label"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="BrandId" class="custom-label"></label>
+                    <select asp-for="BrandId" class="form-select text-center">
+                        @foreach (var brand in Model.Brands)
+                        {
+                            <option value="@brand.Id">@brand.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="CategoryId" class="custom-label"></label>
+                    <select asp-for="CategoryId" class="form-select text-center">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-full">
+                    <label asp-for="Picture" class="custom-label"></label>
+                    <input asp-for="Picture" class="form-control" placeholder="Paste image URL here..." />
+                    <span asp-validation-for="Picture" class="text-danger"></span>
+                </div>
+
+                <div class="form-group-full">
+                    <label asp-for="Description" class="custom-label"></label>
+                    <textarea asp-for="Description" class="form-control" placeholder="Enter product description..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Quantity" class="custom-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Price" class="custom-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Discount" class="custom-label"></label>
+                    <input asp-for="Discount" class="form-control" />
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+
             </div>
-            <div class="form-group">
-                <label asp-for="BrandId" class="control-label"></label>
-                @*<input asp-for="BrandId" class="form-control" />*@
-                <select asp-for="BrandId" class="form-control text-center">
-                    @foreach (var brand in Model.Brands)
-                    {
-                        <option value="@brand.Id">@brand.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="BrandId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                @*<input asp-for="CategoryId" class="form-control" />*@
-                <select asp-for="CategoryId" class="form-control text-center">
-                    @foreach (var category in Model.Categories)
-                    {
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Picture" class="control-label"></label>
-                <input asp-for="Picture" class="form-control" />
-                <span asp-validation-for="Picture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Discount" class="control-label"></label>
-                <input asp-for="Discount" class="form-control" />
-                <span asp-validation-for="Discount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="action-buttons">
+                <button type="submit" class="btn-main">Create Product</button>
+                <a asp-action="Index" class="btn-outline">Back to List</a>
             </div>
         </form>
     </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

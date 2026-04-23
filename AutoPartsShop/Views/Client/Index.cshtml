@@ -1,55 +1,202 @@
 ﻿@model IEnumerable<AutoPartsShop.Models.Client.ClientIndexVM>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clients";
+    var totalClients = Model.Count();
 }
-<h1>Clients</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
 
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn-
-    danger">Delete</a>
+<style>
+    body {
+        background: #f5f7fb;
+        font-family: 'Poppins', sans-serif;
+    }
 
-                </td>
-            </tr>
+    .clients-page {
+        max-width: 1200px;
+        margin: 30px auto;
+    }
+
+    .clients-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .clients-header h1 {
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 8px;
+    }
+
+    .clients-header p {
+        color: #6b7280;
+        margin-bottom: 0;
+    }
+
+    .stats-card {
+        background: white;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        text-align: center;
+        margin-bottom: 22px;
+    }
+
+    .stats-card h3 {
+        margin: 0;
+        font-size: 30px;
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .stats-card p {
+        margin: 6px 0 0 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .clients-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        padding: 22px;
+    }
+
+    .clients-table {
+        margin-bottom: 0;
+    }
+
+    .clients-table thead th {
+        background: #111827;
+        color: white;
+        border: none;
+        padding: 14px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .clients-table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 14px;
+    }
+
+    .clients-table tbody tr {
+        transition: 0.2s ease;
+    }
+
+    .clients-table tbody tr:hover {
+        background: #f9fafb;
+    }
+
+    .client-name {
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .client-email {
+        color: #2563eb;
+        font-weight: 500;
+    }
+
+    .client-address {
+        color: #4b5563;
+    }
+
+    .btn-delete {
+        display: inline-block;
+        background: #dc2626;
+        color: white;
+        text-decoration: none;
+        padding: 9px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    .btn-delete:hover {
+        background: #b91c1c;
+        color: white;
+    }
+
+    .empty-box {
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        padding: 40px;
+        text-align: center;
+    }
+
+    .empty-box h3 {
+        color: #111827;
+        margin-bottom: 10px;
+    }
+
+    .empty-box p {
+        color: #6b7280;
+        margin-bottom: 0;
+    }
+
+    @@media (max-width: 991.98px) {
+        .clients-card {
+            padding: 16px;
         }
-    </tbody>
-</table>
+    }
+</style>
+
+<div class="clients-page">
+
+    <div class="clients-header">
+        <h1>Clients</h1>
+        <p>Manage registered users in the system</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-box">
+            <h3>No clients found</h3>
+            <p>There are currently no registered clients available for management.</p>
+        </div>
+    }
+    else
+    {
+        <div class="stats-card">
+            <h3>@totalClients</h3>
+            <p>Total Registered Clients</p>
+        </div>
+
+        <div class="clients-card">
+            <div class="table-responsive">
+                <table class="table clients-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                            <th>@Html.DisplayNameFor(model => model.Address)</th>
+                            <th>@Html.DisplayNameFor(model => model.Email)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="client-name">@item.UserName</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td class="client-address">@item.Address</td>
+                                <td class="client-email">@item.Email</td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn-delete">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+</div>

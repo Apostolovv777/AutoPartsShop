@@ -195,9 +195,9 @@
                                     <img src="@item.ImageUrl" class="cart-img" />
                                 </td>
                                 <td>@item.ProductName</td>
-                                <td>@item.Price лв.</td>
+                                <td>@item.Price.ToString("F2") лв.</td>
                                 <td>@item.Quantity</td>
-                                <td>@item.TotalPrice лв.</td>
+                                <td>@item.TotalPrice.ToString("F2") лв.</td>
                                 <td>
                                     <a asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId" class="qty-btn btn-plus">+</a>
                                     <a asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId" class="qty-btn btn-minus">-</a>
@@ -210,7 +210,7 @@
             </div>
 
             <div class="total-box">
-                Grand Total: @grandTotal лв.
+                Grand Total: @grandTotal.ToString("F2") лв.
             </div>
 
             <div class="cart-buttons">

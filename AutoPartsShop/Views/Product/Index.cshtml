@@ -184,13 +184,13 @@
                 </div>
 
                 <div class="price">
-                    @item.FinalPrice лв.
+                    @item.FinalPrice.ToString("F2") лв.
                 </div>
 
                 @if (item.Discount > 0)
                 {
                     <div class="old-price">
-                        @item.Price лв.
+                        @item.Price.ToString("F2") лв.
                     </div>
                 }
 

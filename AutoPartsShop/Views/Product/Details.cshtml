@@ -1,78 +1,386 @@
 ﻿@model AutoPartsShop.Models.Product.ProductDetailsVM
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Product Details";
+    var finalPrice = Model.Price - (Model.Price * Model.Discount / 100);
 }
 
-<h1>Details</h1>
+<style>
+    body {
+        background: #f5f7fb;
+        font-family: 'Poppins', sans-serif;
+    }
 
-<div>
-    <h4>ProductDetailsVM</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
+    .details-page {
+        max-width: 1200px;
+        margin: 30px auto;
+    }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BrandName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BrandName)
-        </dd>
+    .details-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
+    .details-header h1 {
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 8px;
+    }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@Html.DisplayFor(model => model.Picture)" alt="Image"
-                 width="100" />
-            @*@Html.DisplayFor(model => model.Picture)*@
-        </dd>
+    .details-header p {
+        color: #6b7280;
+        margin-bottom: 0;
+    }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+    .details-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        overflow: hidden;
+        padding: 25px;
+    }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 28px;
+        align-items: start;
+    }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+    .image-box {
+        background: #f9fafb;
+        border-radius: 18px;
+        padding: 18px;
+        border: 1px solid #eef2f7;
+    }
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Discount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Discount)
-        </dd>
-    </dl>
+    .product-image {
+        width: 100%;
+        height: 430px;
+        object-fit: cover;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .info-box {
+        padding: 6px 0;
+    }
+
+    .product-title {
+        font-size: 34px;
+        font-weight: 800;
+        color: #111827;
+        margin-bottom: 12px;
+        line-height: 1.2;
+    }
+
+    .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .meta-badge {
+        background: #eff6ff;
+        color: #2563eb;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .price-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+    }
+
+    .final-price {
+        font-size: 34px;
+        font-weight: 800;
+        color: #16a34a;
+    }
+
+    .old-price {
+        font-size: 18px;
+        color: #9ca3af;
+        text-decoration: line-through;
+    }
+
+    .discount-badge {
+        background: #facc15;
+        color: #111827;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .stock-box {
+        margin-bottom: 18px;
+    }
+
+    .stock-available {
+        display: inline-block;
+        background: #dcfce7;
+        color: #166534;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .stock-low {
+        display: inline-block;
+        background: #fef3c7;
+        color: #92400e;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .stock-out {
+        display: inline-block;
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .description-box {
+        background: #f9fafb;
+        border-radius: 14px;
+        padding: 18px;
+        border: 1px solid #eef2f7;
+        margin-bottom: 20px;
+    }
+
+    .description-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 8px;
+    }
+
+    .description-text {
+        color: #4b5563;
+        line-height: 1.8;
+        margin-bottom: 0;
+    }
+
+    .details-info-list {
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 12px 0;
+        border-bottom: 1px solid #eef2f7;
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .info-value {
+        color: #4b5563;
+        text-align: right;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .btn-main {
+        background: #111827;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 18px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s ease;
+        display: inline-block;
+    }
+
+    .btn-main:hover {
+        background: #2563eb;
+        color: white;
+    }
+
+    .btn-outline {
+        background: white;
+        color: #111827;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        padding: 12px 18px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s ease;
+        display: inline-block;
+    }
+
+    .btn-outline:hover {
+        background: #f3f4f6;
+        color: #111827;
+    }
+
+    .btn-fav {
+        background: #ef4444;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 18px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s ease;
+        display: inline-block;
+    }
+
+    .btn-fav:hover {
+        background: #dc2626;
+        color: white;
+    }
+
+    @@media (max-width: 991.98px) {
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .product-image {
+            height: 320px;
+        }
+
+        .product-title {
+            font-size: 28px;
+        }
+    }
+</style>
+
+<div class="details-page">
+
+    <div class="details-header">
+        <h1>Product Details</h1>
+        <p>Detailed information about the selected product</p>
+    </div>
+
+    <div class="details-card">
+        <div class="details-grid">
+
+            <!-- LEFT -->
+            <div class="image-box">
+                <img src="@Model.Picture" alt="@Model.ProductName" class="product-image" />
+            </div>
+
+            <!-- RIGHT -->
+            <div class="info-box">
+                <h2 class="product-title">@Model.ProductName</h2>
+
+                <div class="meta-row">
+                    <span class="meta-badge">@Model.BrandName</span>
+                    <span class="meta-badge">@Model.CategoryName</span>
+                </div>
+
+                <div class="price-row">
+                    <span class="final-price">@finalPrice.ToString("0.00") лв.</span>
+
+                    @if (Model.Discount > 0)
+                    {
+                        <span class="old-price">@Model.Price.ToString("0.00") лв.</span>
+                        <span class="discount-badge">@Model.Discount.ToString("0.##")% OFF</span>
+                    }
+                </div>
+
+                <div class="stock-box">
+                    @if (Model.Quantity > 10)
+                    {
+                        <span class="stock-available">In Stock: @Model.Quantity</span>
+                    }
+                    else if (Model.Quantity > 0)
+                    {
+                        <span class="stock-low">Low Stock: @Model.Quantity</span>
+                    }
+                    else
+                    {
+                        <span class="stock-out">Out of Stock</span>
+                    }
+                </div>
+
+                <div class="description-box">
+                    <div class="description-title">Description</div>
+                    <p class="description-text">@Model.Description</p>
+                </div>
+
+                <div class="details-info-list">
+                    <div class="info-item">
+                        <span class="info-label">Brand</span>
+                        <span class="info-value">@Model.BrandName</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Category</span>
+                        <span class="info-value">@Model.CategoryName</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Price</span>
+                        <span class="info-value">@Model.Price.ToString("0.00") лв.</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Discount</span>
+                        <span class="info-value">@Model.Discount.ToString("0.##")%</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Available Quantity</span>
+                        <span class="info-value">@Model.Quantity</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="/Cart/AddToCart?id=@Model.Id&name=@Model.ProductName&price=@finalPrice&imageUrl=@Model.Picture"
+                       class="btn-main">
+                        🛒 Add to Cart
+                    </a>
+
+                    <a asp-controller="Favourites"
+                       asp-action="Add"
+                       asp-route-id="@Model.Id"
+                       class="btn-fav">
+                        ❤️ Add to Favourites
+                    </a>
+
+                    @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-outline">Edit</a>
+                    }
+
+                    <a asp-action="Index" class="btn-outline">Back to List</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

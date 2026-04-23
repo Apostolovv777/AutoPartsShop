@@ -253,15 +253,15 @@
                                 </td>
 
                                 <td class="price">
-                                    @item.Price.ToString("0.00") лв.
+                                    @item.Price.ToString("F2") лв.
                                 </td>
 
                                 <td>
-                                    <span class="badge-discount">@item.Discount.ToString("0.##")%</span>
+                                    <span class="badge-discount">@item.Discount.ToString("F2")%</span>
                                 </td>
 
                                 <td class="total-price">
-                                    @item.TotalPrice.ToString("0.00") лв.
+                                    @item.TotalPrice.ToString("F2") лв.
                                 </td>
                             </tr>
                         }
