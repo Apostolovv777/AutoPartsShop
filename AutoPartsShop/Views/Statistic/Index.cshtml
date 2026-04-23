@@ -1,53 +1,195 @@
 ﻿@using AutoPartsShop.Models.Statistic
 @model StatisticVM
+
 @{
     ViewData["Title"] = "Statistics";
 }
-<h4 class="text-center">Statistic</h4>
-<div class="text-center">
-    <div class="col-xl-8">
-        <div class="card-group pb-0">
-            <div class="card-columns text-center">
-            </div>
-        </div>
-        <table class="table table-striped " style="width:150%">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CountClients)
-                    </th>
-                    <th>
 
-                        @Html.DisplayNameFor(model => model.CountProducts)
-                    </th>
-                    <th>
+<style>
+    body {
+        background: #f5f7fb;
+        font-family: 'Poppins', sans-serif;
+    }
 
-                        @Html.DisplayNameFor(model => model.CountOrders)
-                    </th>
-                    <th>
+    .stats-page {
+        max-width: 1200px;
+        margin: 30px auto;
+    }
 
-                        @Html.DisplayNameFor(model => model.SumOrders)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.CountClients)
-                    </td>
-                    <td>
+    .stats-header {
+        text-align: center;
+        margin-bottom: 28px;
+    }
 
-                        @Html.DisplayFor(model => model.CountProducts)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => model.CountOrders)
-                    </td>
-                    <td>
+        .stats-header h1 {
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 8px;
+        }
 
-                        @Html.DisplayFor(model => model.SumOrders)
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        .stats-header p {
+            color: #6b7280;
+            margin-bottom: 0;
+        }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        padding: 24px;
+        transition: 0.25s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.06);
+        }
+
+    .stat-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        font-size: 22px;
+        color: white;
+        position: relative;
+        z-index: 1;
+    }
+
+    .icon-clients {
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+    }
+
+    .icon-products {
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+
+    .icon-orders {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    }
+
+    .icon-sum {
+        background: linear-gradient(135deg, #dc2626, #ef4444);
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 10px;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stat-value {
+        font-size: 34px;
+        font-weight: 800;
+        color: #111827;
+        line-height: 1.1;
+        position: relative;
+        z-index: 1;
+    }
+
+    .stats-note {
+        margin-top: 24px;
+        background: white;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        padding: 18px 22px;
+        color: #4b5563;
+        font-size: 14px;
+    }
+
+    @@media (max-width: 991.98px) {
+        .stats-grid
+
+    {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    }
+
+    @@media (max-width: 575.98px) {
+        .stats-grid
+
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-value {
+        font-size: 28px;
+    }
+
+    }
+</style>
+
+<div class="stats-page">
+
+    <div class="stats-header">
+        <h1>Statistics</h1>
+        <p>Overview of the main system indicators</p>
     </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon icon-clients">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="stat-label">@Html.DisplayNameFor(model => model.CountClients)</div>
+            <div class="stat-value">@Html.DisplayFor(model => model.CountClients)</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon icon-products">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+            <div class="stat-label">@Html.DisplayNameFor(model => model.CountProducts)</div>
+            <div class="stat-value">@Html.DisplayFor(model => model.CountProducts)</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon icon-orders">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <div class="stat-label">@Html.DisplayNameFor(model => model.CountOrders)</div>
+            <div class="stat-value">@Html.DisplayFor(model => model.CountOrders)</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon icon-sum">
+                <i class="fa-solid fa-sack-dollar"></i>
+            </div>
+            <div class="stat-label">@Html.DisplayNameFor(model => model.SumOrders)</div>
+            <div class="stat-value">@Html.DisplayFor(model => model.SumOrders)</div>
+        </div>
+
+    </div>
+
+    <div class="stats-note">
+        This dashboard displays key administrative statistics for the AutoPartShop system, including total registered clients, available products, processed orders and total order value.
+    </div>
+
 </div>
